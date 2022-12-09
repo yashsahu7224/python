@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'predictor/styles.css' %}">
+    <script src="{% static 'predictor/index.js' %}"></script>
+    <title>Cricket-Score-Predictor</title>
+    <style>
+        @keyframes blink {
+            0%{
+                opacity: 1;
+            }
+            50%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+        #lastdot{
+            animation-name: blink;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            animation-fill-mode: forwards;
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body>
+    <header style="background-color: rgb(224, 255, 217);">
+        <h2 id="hname">Score Predictor</h2>
+        <div class="head">
+            <ul>
+                <li><button class="btn btn-sm btn-outline-primary" id="home">Home</button></li>
+                <li><button class="btn btn-sm btn-outline-primary" id="aboutus">About Us</button></li>
+            </ul>
+        </div>
+    </header>
+    <div id="home-container">
+       <div id="full-form" >
+            <form id="formm" action="{% url 'index' %}" method="POST">
+                {% csrf_token %}
+                <div id="form-container" >
+                    {{form}}
+                </div>
+                <div>
+                    <div style="width: 60px;margin: auto;">
+                        <input type="submit" id="sbtn">
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% if runs %}
+            <h2>Predicted Runs: {{runs}}</h2>
+        {% endif %}
+        <div id="waiting" style="display: none;">
+            <h2>Calculating..<span id="lastdot">.</span></h2>
+        </div>
+        <div id="output"></div>
+    </div>
+    <div id="aboutus-container">
+        <h2>About Us</h2>
+        <div>
+            <h4>TODO............</h4>
+            <p>Strange but True. It's TODO yet. Coming soon...</p>
+        </div>
+    </div>
+    <footer style="position: absolute; bottom: 0;width: 100%;min-height: 100px;">
+        <div style="background-color: darkolivegreen;text-align: center;min-height: 100px;padding-top: 50px;">
+            <span>Built with ❤ by Paras and Abhinav</span>
+        </div>
+    </footer>
+</body>
+</html>
